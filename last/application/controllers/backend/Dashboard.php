@@ -49,6 +49,16 @@ class Dashboard extends CI_Controller
 			$this->Foto($data);
 		} else {
 			// $data= array('upload_data'=>$this->upload->data());
+
+			$data_upload = $this->upload->data();
+			$file_name =  $data_upload['file_name'];
+
+			$data_barang = [
+				'nama' => $this->input->post('txtnama'),
+				'deskripsi' => $this->input->post('txtketerangan'),
+				'gambar' => $file_name
+			];
+			$this->barang->tambah_barang($data_barang);
 			$data['pesan'] = 'berhasil upload';
 			$this->Foto($data);
 		}

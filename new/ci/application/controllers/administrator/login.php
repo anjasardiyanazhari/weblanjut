@@ -1,7 +1,8 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class login extends CI_Controller {
+class login extends CI_Controller
+{
 
 	/**
 	 * Index Page for this controller.
@@ -25,20 +26,30 @@ class login extends CI_Controller {
 
 	public function proses_login()
 	{
-		$this->form_validation->set_rules('email', 'Email', 'required',
-								array(	'required'		=> '%s Harus Diisi',
-									));
+		$this->form_validation->set_rules(
+			'email',
+			'Email',
+			'required',
+			array(
+				'required'		=> '%s Harus Diisi',
+			)
+		);
 
-		$this->form_validation->set_rules('password', 'Password', 'required',
-								array(	'required'		=> '%s Harus Diisi',
-									));
+		$this->form_validation->set_rules(
+			'password',
+			'Password',
+			'required',
+			array(
+				'required'		=> '%s Harus Diisi',
+			)
+		);
 
-		if ($this->form_validation->run()===FALSE) {
+		if ($this->form_validation->run() === FALSE) {
 			$this->load->view('administrator/v_login');
 
 			// atau cara lain balik
 			// return $this->index();
-		}else{
+		} else {
 
 			$email = $this->input->post('email');
 			$password = sha1($this->input->post('password'));
@@ -46,7 +57,7 @@ class login extends CI_Controller {
 			$this->load->model('m_admin');
 
 			$result = $this->m_admin->getAdmin($email, $password);
-			
+
 			if ($result->row()) {
 				// var_dump($result->row());
 
@@ -67,8 +78,8 @@ class login extends CI_Controller {
 				// redirect('administrator/pegawai');
 
 
-			}else{
-				$this->session->set_flashdata('msg', 'Email atau Password salah');
+			} else {
+				$this->session->set_flashdata('msg', 'Username atau Password salah');
 				redirect('administrator/login');
 			}
 		}
